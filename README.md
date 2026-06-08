@@ -2,7 +2,7 @@
 
 Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-Testes automatizados e scripts facilitam a execução confiável do pipeline e a abertura do Streamlit.
+Foram acrescentados relatórios em Markdown, roteiro de apresentação e documentação acadêmica.
 
 ## Como executar o projeto
 
@@ -27,6 +27,7 @@ O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta
 ## Arquivos relevantes nesta etapa
 
 - `app.py`
-- `tests/`
-- `scripts/configurar_e_executar_windows.ps1`
-- `scripts/configurar_e_executar_linux_mac.sh`
+- `reports/RELATORIO_TECNICO.md`
+- `reports/RELATORIO_EXECUTIVO.md`
+- `docs/ROTEIRO_DE_DEFESA.md`
+- `docs/PERGUNTAS_ARGUICAO.md`
