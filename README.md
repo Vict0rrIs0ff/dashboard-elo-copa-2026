@@ -1,7 +1,8 @@
 # ⚽ Dashboard Streamlit Elo Copa 2026
-    Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-    A aplicação já abre em Streamlit, carrega o CSV bruto e mostra métricas, prévia e tabela de qualidade inicial.
+Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
+
+O dashboard executa a limpeza, apresenta o impacto dos tratamentos e oferece o download da base tratada.
 
 ## Como executar o projeto
 
@@ -9,10 +10,23 @@
 
 ```bash
 pip install -r requirements.txt
+```
+
+### 2. Execute a aplicação
+
+```bash
+python scripts/run_cleaning.py
+streamlit run app.py
+```
+
+## Fonte dos dados
+
+O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta `data/raw` mantém uma cópia local apenas como contingência e rastreabilidade.
 
 ## Arquivos relevantes nesta etapa
 
-    - `app.py`
-- `data/raw/elo_ratings_wc2026.csv`
-- `requirements.txt`
-
+- `app.py`
+- `src/data_processing.py`
+- `scripts/run_cleaning.py`
+- `data/processed/elo_ratings_wc2026_clean.csv`
+- `artifacts/resumo_limpeza.json`
