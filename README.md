@@ -2,7 +2,7 @@
 
 Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-O dashboard recebe atributos informados pelo usuário e calcula a probabilidade posterior com Bayes implementado manualmente.
+O dashboard compara Bayes manual e regressão logística para um perfil configurado pelo usuário.
 
 ## Como executar o projeto
 
@@ -25,5 +25,5 @@ O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta
 ## Arquivos relevantes nesta etapa
 
 - `app.py`
-- `src/data_processing.py`
+- `src/modeling.py`
 - `src/bayes_manual.py`
