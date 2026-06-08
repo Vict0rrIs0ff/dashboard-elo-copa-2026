@@ -2,7 +2,7 @@
 
 Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-O dashboard recebe refinamentos de interface, explicações analíticas e detalhamento das etapas do Teorema de Bayes.
+Testes automatizados e scripts facilitam a execução confiável do pipeline e a abertura do Streamlit.
 
 ## Como executar o projeto
 
@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 ```bash
 python scripts/run_pipeline.py
+pytest -q
 streamlit run app.py
 ```
 
@@ -26,5 +27,6 @@ O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta
 ## Arquivos relevantes nesta etapa
 
 - `app.py`
-- `scripts/run_pipeline.py`
-- `artifacts/metricas_modelos.csv`
+- `tests/`
+- `scripts/configurar_e_executar_windows.ps1`
+- `scripts/configurar_e_executar_linux_mac.sh`
