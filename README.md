@@ -2,7 +2,7 @@
 
 Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-Foram acrescentadas árvore de decisão, avaliação temporal, métricas e matrizes de confusão.
+O dashboard recebe refinamentos de interface, explicações analíticas e detalhamento das etapas do Teorema de Bayes.
 
 ## Como executar o projeto
 
@@ -27,5 +27,4 @@ O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta
 
 - `app.py`
 - `scripts/run_pipeline.py`
-- `src/modeling.py`
 - `artifacts/metricas_modelos.csv`
