@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import plotly.express as px
 import streamlit as st
 
 from src.data_processing import TARGET_COLUMN, clean_data, load_raw_data, save_clean_data
@@ -10,7 +11,7 @@ CLEAN_PATH = ROOT / "data" / "processed" / "elo_ratings_wc2026_clean.csv"
 
 st.set_page_config(page_title="Elo Copa 2026", page_icon="⚽", layout="wide")
 st.title("⚽ Dashboard Elo Copa 2026")
-st.caption("Tratamento e limpeza dos dados")
+st.caption("Análise exploratória interativa")
 
 raw = load_raw_data(RAW_PATH)
 data, summary = clean_data(raw)
@@ -18,18 +19,30 @@ save_clean_data(data, CLEAN_PATH)
 st.caption(f"Fonte carregada: **{summary['origem_dados']}**")
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Linhas originais", summary["linhas_iniciais"])
-c2.metric("Duplicatas semânticas removidas", summary["duplicatas_semanticas_removidas"])
-c3.metric("Retratos curtos removidos", summary["registros_com_menos_de_30_partidas_removidos"])
-c4.metric("Linhas tratadas", summary["linhas_finais"])
+c1.metric("Observações tratadas", summary["linhas_finais"])
+c2.metric("Seleções", data["country"].nunique())
+c3.metric("Período", f"{int(data['year'].min())} a {int(data['year'].max())}")
+c4.metric("Observações de elite", f"{data[TARGET_COLUMN].mean() * 100:.1f}%")
 
-st.subheader("Decisões de tratamento")
-st.write("Foram validadas datas, somas de partidas, resultados, ranking e gols. Também foram removidas duplicatas semânticas e observações com menos de 30 partidas acumuladas.")
+with st.expander("Como os dados foram tratados"):
+    st.json(summary)
 
-st.subheader("Prévia da base tratada")
-st.dataframe(data.head(20), use_container_width=True, hide_index=True)
-st.download_button("Baixar CSV tratado", data.to_csv(index=False).encode("utf-8"), "elo_ratings_wc2026_clean.csv", "text/csv")
+left, right = st.columns(2)
+with left:
+    classe = data[TARGET_COLUMN].map({0: "Fora do Top 10", 1: "Elite (Top 10)"})
+    fig = px.histogram(data.assign(classe=classe), x="rating_avg", color="classe", nbins=35, barmode="overlay", title="Distribuição do rating Elo médio por classe")
+    st.plotly_chart(fig, use_container_width=True)
+with right:
+    conf = data.groupby("confederation", as_index=False).agg(proporcao_elite=(TARGET_COLUMN, "mean"))
+    fig = px.bar(conf, x="confederation", y="proporcao_elite", text_auto=".1%", title="Proporção histórica de elite por confederação")
+    fig.update_yaxes(tickformat=".0%")
+    st.plotly_chart(fig, use_container_width=True)
 
-st.subheader("Distribuição inicial da variável-alvo")
-target = data[TARGET_COLUMN].map({0: "Fora do Top 10", 1: "Elite (Top 10)"}).value_counts().rename_axis("classe").to_frame("observacoes")
-st.dataframe(target, use_container_width=True)
+trend = data.groupby("year", as_index=False).agg(rating_mediano=("rating", "median"))
+fig = px.line(trend, x="year", y="rating_mediano", title="Evolução da mediana do rating Elo")
+st.plotly_chart(fig, use_container_width=True)
+
+latest_year = int(data["year"].max())
+top = data.loc[data["year"] == latest_year].sort_values("rank").head(15).sort_values("rating")
+fig = px.bar(top, x="rating", y="country", orientation="h", title=f"As 15 seleções com maior rating em {latest_year}")
+st.plotly_chart(fig, use_container_width=True)

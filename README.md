@@ -2,7 +2,7 @@
 
 Equipe: **Victor de Pinho Sampaio** e **Pedro Augusto Teixeira**.
 
-O dashboard executa a limpeza, apresenta o impacto dos tratamentos e oferece o download da base tratada.
+A seção de análise exploratória apresenta indicadores e gráficos interativos. O notebook complementar registra a inspeção técnica.
 
 ## Como executar o projeto
 
@@ -26,7 +26,6 @@ O aplicativo tenta carregar o CSV diretamente do Kaggle com `kagglehub`. A pasta
 ## Arquivos relevantes nesta etapa
 
 - `app.py`
-- `src/data_processing.py`
-- `scripts/run_cleaning.py`
-- `data/processed/elo_ratings_wc2026_clean.csv`
-- `artifacts/resumo_limpeza.json`
+- `notebooks/Projeto_Elo_Copa_2026_complementar.ipynb`
+- `artifacts/analise_confederacoes.csv`
+- `artifacts/top_15_selecoes_retrato_2026.csv`
